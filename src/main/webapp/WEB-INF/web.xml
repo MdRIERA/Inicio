@@ -9,4 +9,14 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>Bibliotecacontroller</display-name>
+    <servlet-name>Bibliotecacontroller</servlet-name>
+    <servlet-class>controlador.Bibliotecacontroller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Bibliotecacontroller</servlet-name>
+    <url-pattern>/Bibliotecacontroller</url-pattern>
+  </servlet-mapping>
 </web-app>
