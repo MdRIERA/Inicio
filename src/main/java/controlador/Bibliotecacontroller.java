@@ -1,8 +1,5 @@
 package controlador;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
+ 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,22 +8,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import modelo.Libro;
 import modelo.LibroDAO;
-
+ 
+import java.io.IOException;
+import java.util.ArrayList;
+ 
+/**
+* Servlet implementation class BibliotecaController
+*/
 @WebServlet(urlPatterns= {"","/insertar"})
-public class Bibliotecacontroller extends HttpServlet {
+public class BibliotecaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+ 
     /**
-     * Default constructor. 
+     * Default constructor.
      */
-    public Bibliotecacontroller() {
+    public BibliotecaController() {
         // TODO Auto-generated constructor stub
     }
-
+ 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		//System.out.println("Servlet BibliotecaController");
@@ -34,7 +37,7 @@ public class Bibliotecacontroller extends HttpServlet {
 			try {
 				LibroDAO libroDAO = new LibroDAO();
 				ArrayList<Libro> libros;
-				libros = libroDAO.getLibros();
+				libros = new ArrayList<Libro>(libroDAO.getLibros());
 				request.setAttribute("libros", libros);
 			}catch(RuntimeException  e) {
 				request.setAttribute("error", e.getMessage());
@@ -51,7 +54,7 @@ public class Bibliotecacontroller extends HttpServlet {
 				Libro libro = new Libro(Integer.parseInt(request.getParameter("isbn")),
 						request.getParameter("titulo"),request.getParameter("autor"));
 				libroDAO.insertar(libro);
-				request.setAttribute("info","Libro "+ libro.toString()+" añadido");
+				request.setAttribute("info","Libro "+ libro+" añadido");
 			}catch(NumberFormatException e) {
 				request.setAttribute("ERROR", e.getMessage());
 			}catch(RuntimeException e) {
@@ -61,7 +64,7 @@ public class Bibliotecacontroller extends HttpServlet {
 		}
 		despachador.forward(request, response);
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -69,5 +72,5 @@ public class Bibliotecacontroller extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+ 
 }
